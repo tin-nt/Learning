@@ -2,14 +2,14 @@ create database OnThi
 use OnThi
 set dateformat DMY
 -- create table
-drop table if exist KHACHHANG
-drop table if exist NHANVIEN
-drop table if exist SANPHAM
-drop table if exist HOADON
-drop table if exist CTHD
+drop table if exists KHACHHANG
+drop table if exists NHANVIEN
+drop table if exists SANPHAM
+drop table if exists HOADON
+drop table if exists CTHD
 
 create table KHACHHANG (
-	MAKH    char(4) not null primary key,
+	MAKH    char(4) primary key,
 	HOTEN	varchar(40),
 	DCHI	varchar(50),
 	SODT	varchar(20),
@@ -18,26 +18,24 @@ create table KHACHHANG (
 	DOANHSO	money
 );
 create table NHANVIEN(
-	MANV	char(4) not null primary key,
+	MANV	char(4) primary key,
 	HOTEN	varchar(40),
 	SODT    varchar(20),
 	NGVL	smalldatetime
 );
 create table SANPHAM(
- 	MASP	char(4) not null primary key,
+ 	MASP	char(4) primary key,
  	TENSP	varchar(40),
  	DVT     varchar(20),
  	NUOCSX	varchar(40),
  	GIA	money
 );
 create table HOADON(
-	SOHD	int not null primary key,
+	SOHD	int primary key,
 	NGHD	smalldatetime,
-	MAKH	char(4),
-	MANV	char(4),
+	MAKH	char(4) references khachhang(makh),
+	MANV	char(4) references nhanvien(manv),
 	TRIGIA	money,
-	foreign key (makh) references khachhang(makh),
-	foreign key (manv) references nhanvien(manv)
 );
 create table CTHD(
 	SOHD    int,
