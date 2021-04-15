@@ -1,14 +1,18 @@
+import java.util.concurrent.CountDownLatch;
+
 class GuruThread implements Runnable {
     Thread thread;
     private int a[][], row, col;
     private String threadName;
     private double result[];
+    CountDownLatch countDownLatch;
 
-    GuruThread(String threadName, int[][] a, int m, int n) {
+    GuruThread(String threadName, CountDownLatch countDownLatch, int[][] a, int m, int n) {
         this.threadName = threadName;
         this.a = a;
         this.row = m;
         this.col = n;
+        this.countDownLatch = countDownLatch;
     }
 
     @Override
@@ -21,6 +25,7 @@ class GuruThread implements Runnable {
             result[i] = average(a, i, col);
         }
         System.out.println("Exiting Thread: " + threadName);
+        countDownLatch.countDown();
     }
 
     public void start() {
