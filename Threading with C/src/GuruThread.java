@@ -2,6 +2,7 @@ class GuruThread implements Runnable {
     Thread thread;
     private int a[][], row, col;
     private String threadName;
+    private double result[];
 
     GuruThread(String threadName, int[][] a, int m, int n) {
         this.threadName = threadName;
@@ -12,11 +13,12 @@ class GuruThread implements Runnable {
 
     @Override
     public void run() {
-
+        result = new double[row];
         System.out.println("Running Thread: " + threadName);
         for (int i = 0; i < row; i++) {
 //            System.out.println(threadName + "[" + j + ", " + (col-1) + "]: " + average(a, j, col));
             System.out.print(average(a, i, col) + "\t");
+            result[i] = average(a, i, col);
         }
         System.out.println("Exiting Thread: " + threadName);
     }
@@ -30,6 +32,9 @@ class GuruThread implements Runnable {
 
     }
 
+    public double [] getValue(){
+        return result;
+    }
 
     public double average(int[][] a, int row, int col) {
         double sum = 0;
