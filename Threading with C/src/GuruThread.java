@@ -5,31 +5,32 @@ class GuruThread implements Runnable {
     private int a[][], row, col;
     private String threadName;
     private double result[];
+    private int countDownIndex;
     CountDownLatch countDownLatch;
 
-    GuruThread(String threadName, CountDownLatch countDownLatch, int[][] a, int m, int n) {
+    GuruThread(String threadName, CountDownLatch countDownLatch, int[][] a, int m, int n, int countDownIndex) {
         this.threadName = threadName;
         this.a = a;
         this.row = m;
         this.col = n;
         this.countDownLatch = countDownLatch;
+        this.countDownIndex = countDownIndex;
     }
 
     @Override
     public void run() {
         result = new double[row];
-        System.out.println("Running Thread: " + threadName);
+//        System.out.println("Running Thread: " + threadName);
         for (int i = 0; i < row; i++) {
 //            System.out.println(threadName + "[" + j + ", " + (col-1) + "]: " + average(a, j, col));
-            System.out.print(average(a, i, col) + "\t");
+//            System.out.print(average(a, i, col) + "\t");
             result[i] = average(a, i, col);
         }
-        System.out.println("Exiting Thread: " + threadName);
         countDownLatch.countDown();
     }
 
     public void start() {
-        System.out.println("Starting Thread: " + threadName);
+//        System.out.println("Starting Thread: " + threadName);
         if (thread == null) {
             thread = new Thread(this, threadName);
             thread.start();
