@@ -14,13 +14,10 @@ class GuruThread implements Runnable {
     public void run() {
 
         System.out.println("Running Thread: " + threadName);
-        for (int i = 0; i < col; i++) {
-            for (int j = 0; j < row; j++) {
-                System.out.println(threadName +"["+j+", "+i+"]: "  +average(a,j,i));
-            }
-            System.out.println();
+        for (int i = 0; i < row; i++) {
+//            System.out.println(threadName + "[" + j + ", " + (col-1) + "]: " + average(a, j, col));
+            System.out.print(average(a, i, col) + "\t");
         }
-
         System.out.println("Exiting Thread: " + threadName);
     }
 
@@ -51,11 +48,11 @@ class GuruThread implements Runnable {
             // vi tri can tim: a[this.row-1][0]
             else if (row == this.row - 1) {
                 // a[row-2][0]
-                sum += a[row - 2][col];
+                sum += a[this.row - 2][col];
                 // a[row-2][1]
-                sum += a[row - 2][col + 1];
+                sum += a[this.row - 2][col + 1];
                 // a[row-1][1]
-                sum += a[row - 1][col + 1];
+                sum += a[this.row - 1][col + 1];
                 sum /= 3;
             }
             // vi tri can tim: a[row][col]
@@ -69,22 +66,22 @@ class GuruThread implements Runnable {
             }
         }
         // xet thread o vi tri col - 1
-        else if (col == this.col - 1) {
+        else if (col == this.col) {
             // vi tri can tim: a[0][this.col-1]
             if (row == 0) {
                 // a[0][this.col-1]
-                sum += a[row][col - 2];
+                sum += a[row][this.col - 1];
                 // a[1][this.col-2]
-                sum += a[row + 1][col - 2];
+                sum += a[row + 1][this.col - 1];
                 // a[1][this.col-1]
-                sum += a[row + 1][col - 1];
+                sum += a[row + 1][this.col];
                 sum /= 3;
             }
             // vi tri can tim: a[this.row-1][this.col-1]
-            else if (row == this.row - 1) {
-                sum += a[row - 1][col - 2];
-                sum += a[row - 2][col - 2];
-                sum += a[row - 2][col - 1];
+            else if (row == this.row-1) {
+                sum += a[this.row - 1][this.col - 1];
+                sum += a[this.row - 2][this.col - 1];
+                sum += a[this.row - 2][this.col];
                 sum /= 3;
             } else {
                 sum += a[row - 1][col];
