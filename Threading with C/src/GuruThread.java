@@ -2,19 +2,18 @@ import java.util.concurrent.CountDownLatch;
 
 class GuruThread implements Runnable {
     Thread thread;
-    private int a[][], row, col;
+    private int row, col;
+    private double a[][];
     private String threadName;
     private double result[];
-    private int countDownIndex;
     CountDownLatch countDownLatch;
 
-    GuruThread(String threadName, CountDownLatch countDownLatch, int[][] a, int m, int n, int countDownIndex) {
+    GuruThread(String threadName, CountDownLatch countDownLatch, double[][] a, int row, int col) {
         this.threadName = threadName;
         this.a = a;
-        this.row = m;
-        this.col = n;
+        this.row = row;
+        this.col = col;
         this.countDownLatch = countDownLatch;
-        this.countDownIndex = countDownIndex;
     }
 
     @Override
@@ -42,7 +41,7 @@ class GuruThread implements Runnable {
         return result;
     }
 
-    public double average(int[][] a, int row, int col) {
+    public double average(double[][] a, int row, int col) {
         double sum = 0;
         // xet thread o vi tri 0
         if (col == 0) {
@@ -76,7 +75,7 @@ class GuruThread implements Runnable {
                 sum /= 5;
             }
         }
-        // xet thread o vi tri col - 1
+        // xet thread o vi tri cuoi
         else if (col == this.col) {
             // vi tri can tim: a[0][this.col-1]
             if (row == 0) {
