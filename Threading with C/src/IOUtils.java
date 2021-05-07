@@ -68,5 +68,6 @@ public class IOUtils {
             bufferedWriter.newLine();
         }
         bufferedWriter.flush();
+        bufferedWriter.close();
     }
 }
