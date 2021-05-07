@@ -1,4 +1,6 @@
 import java.io.*;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Scanner;
 
 public class IOUtils {
@@ -56,9 +58,11 @@ public class IOUtils {
     }
 
     public void output() throws IOException {
+        NumberFormat numberFormat = new DecimalFormat("#0.00");
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("output.txt"));
         for(int i =0; i<row; i++){
             for(int j=0; j<col; j++){
+                a[i][j] = Double.parseDouble(numberFormat.format(a[i][j]));
                 bufferedWriter.write(a[i][j] + ((j == a[i].length-1)?"":" "));
             }
             bufferedWriter.newLine();
